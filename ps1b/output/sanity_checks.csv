@@ -1,0 +1,71 @@
+check,value,note
+daily rows,629274,"(manifest: 629,274)"
+split events,232,(manifest: 232)
+"daily duplicates (permno,date)",0,
+daily missing ret / mkt_ret / mktcap,0 / 0 / 0,
+distinct permnos in daily,202,
+event permnos missing from daily,0,
+duplicated event_id,0,
+ex-date range,2014-01-08 to 2025-12-23,
+ex-date before declaration date,0,
+daily ret min / max,-0.890 / 11.400,"decimal returns; max is a real +1140% (penny-stock) day, kept"
+dates with >1 distinct mkt_ret,0,mkt_ret is one series
+trading days in calendar,3520,"(approx. 252 x 14 = 3,528)"
+explicit NaN ret in raw file,0,
+empty stock-days inside stock history filled with mkt_ret,91,"(0.0145% of 629,365 stock-days)"
+"stock-days in wholly-empty months (not filled, month treated as 'stopped trading')",923,
+remaining NaN returns after fill,0,
+filled-days by permno (top 5),"{15664: 23, 92043: 23, 90400: 22, 91907: 16, 13554: 4}",
+monthly stock-months,30067,
+monthly stock-return range,-0.824 to 16.251,
+market days per month: min / max,19 / 23,(expect ~19-23)
+monthly market return mean / sd (decimal),0.0113 / 0.0408,
+French monthly ranges (ff3 / ff5 / mom / ME-VW / ME bp),1926-07-2026-08 / 1963-07-2026-08 / 1927-01-2026-08 / 1926-07-2026-08 / 1925-12-2026-08,
+ff3 Mkt-RF mean / sd in 2014-2025 (decimal/month),0.0099 / 0.0435,(units: percent/100)
+ME breakpoints monotone in p5..p100,True,
+ME-VW decile NaNs,0,
+Mkt-RF ff3 vs ff5 max abs diff,0.000800000000000009,"(<=0.08pp: file-vintage/rounding differences, immaterial)"
+SMB ff3 vs ff5 max abs diff,0.0351,"(SMB differs: 3-factor file sorts on size/B-M, 5-factor file averages SMB over B/M, OP and Inv sorts)"
+"corr(compounded mkt_ret, French Mkt-RF+RF) monthly",0.99772,over 168 months
+max abs diff (compounded mkt_ret - French Mkt),0.0092,
+"mean monthly diff (mkt_ret - French Mkt), and 2014-2025 compounded return of each",-0.00115; 2.825 vs 3.420,mkt_ret runs ~0.11pp/month (~1.4%/yr) BELOW French's market: BHAR benchmark is slightly easier than the factor-model market
+events with trading obs in month 0,232 of 232,
+panel rows with NaN ret_used,0,
+panel rows with NaN ret_mkt,0,
+monthly stock return inside event windows: min / max,-0.585 / 1.054,"the four >+200% single-day spikes in the file (micro-caps, real cap jumps) fall outside all event windows"
+events by ex-year,"{2014: 41, 2015: 29, 2016: 17, 2017: 18, 2018: 13, 2019: 8, 2020: 9, 2021: 22, 2022: 20, 2023: 10, 2024: 26, 2025: 19}",
+panel rows by tau (each should be <= #events),"{1: 230, 2: 229, 3: 229, 4: 227, 5: 227, 6: 226, 7: 223, 8: 220, 9: 220, 10: 219, 11: 218, 12: 213}",
+"expected panel rows = sum(min(12, DATA_END - m0))",2681,observed 2681
+"BHAR from panel vs direct daily compounding (8 random events), max abs diff",2.66e-15,
+events whose window contains a day filled with mkt_ret,2,(only these events can be affected by the fill rule)
+robustness: mean BHAR vs French market / t,-0.0062 / -0.26,(provided mkt_ret is ~1.4%/yr lower than French's market)
+SE of mean BHAR: iid vs clustered by ex-date month,0.0244 vs 0.0237,97 clusters
+skewness gamma-hat vs scipy skew(bias=True),0.408 vs 0.411,
+"events with stop at tau=1 (whole window = market, BHAR = 0)",0,
+BHAR min / max,-0.927 / 1.366,BHAR >= -(1 + market return): sanity ok if min > -1.5
+events with size decile assigned,232 of 232,
+cap at month 0: median / min / max ($ millions),"5,324 / 23.4 / 3,035,234","mktcap file unit is $ thousands; divided by 1,000 to match French's $ millions"
+NaN decile benchmark returns in BHAR window,0,
+mean 12m benchmark return: market vs size-decile,0.0978 vs 0.0745,
+diff = BHAR_dec - BHAR_mkt equals bench_mkt - bench_dec (max abs err),1.11e-16,
+t-stat of paired difference (decile - market),4.758,
+held event-months before / after removing overlapping splits of the same stock,2675 / 2667,8 duplicates removed
+held stock returns identical across duplicated events?,True,
+calendar months in portfolio span / with >=1 stock,143 / 143,
+portfolio span,2014-02 to 2025-12,
+EW weights sum to 1 in every month (max abs deviation),0.00e+00,
+months with n<10: first / last,2014-02 / 2023-10,
+portfolio monthly return range,-0.194 to 0.160,
+max stocks held <= number of distinct event permnos,41 <= 202,
+months in portfolio missing French factors (3f / mom / 5f),0 / 0 / 0,
+RF mean (decimal/month) over sample,0.00146,"(about 1.75%/yr: near zero in 2014-2021, 4-5% in 2023-2025)"
+RF ff3 vs ff5 identical,True,
+model (1) alpha == mean excess return,0.007960 vs 0.007960,
+CAPM alpha/beta: statsmodels vs numpy lstsq (max abs diff),2.22e-16,
+held stock-months lacking previous-month cap,0,
+VW weights sum to 1 in every month (max abs deviation),2.22e-16,
+VW: average / max (over months) of largest single-stock weight,0.502 / 0.944,
+VW: average effective number of stocks (1/sum w^2),3.7,
+"corr(EW, VW) portfolio return",0.758,
+mean monthly return EW vs VW (decimal),0.0094 vs 0.0136,
+decomposition identity: max |sum - mean excess|,1.4e-14,

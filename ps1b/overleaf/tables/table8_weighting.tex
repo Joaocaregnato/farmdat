@@ -1,0 +1,15 @@
+\begin{table}
+\caption{Q8: monthly alpha (percent) and its t-statistic by weighting scheme. EW OLS = Q6 (each month equal weight, stocks equally weighted); WLS = months weighted by the number of stocks held that month; VW = stocks weighted by their market cap at the end of the previous month (OLS across months). t: Newey-West with 6 lags (usual OLS t-statistics are in table8\_weighting\_full.csv and lead to the same conclusions).}
+\label{tab:q8}
+\begin{tabular}{lrrrrrr}
+\toprule
+ & EW alpha & EW t & WLS alpha & WLS t & VW alpha & VW t \\
+\midrule
+(1) No factors & 0.796 & 2.265 & 0.710 & 2.119 & 1.215 & 2.374 \\
+(2) CAPM & -0.325 & -1.524 & -0.176 & -0.805 & -0.065 & -0.161 \\
+(3) FF3 & -0.121 & -0.515 & 0.036 & 0.153 & -0.147 & -0.409 \\
+(4) FF3+Mom & -0.124 & -0.526 & 0.024 & 0.104 & -0.104 & -0.294 \\
+(5) FF5 & -0.114 & -0.483 & 0.029 & 0.120 & -0.165 & -0.498 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,9 @@
+,Percent per year
+(a) Mean 12-month BHAR vs. mkt_ret,0.74
+(b) Mean 12-month BHAR vs. French market,-0.62
+(c) Event-month mean of (R_i - mkt_ret) x 12,0.93
+(d) Calendar-month mean of (R_p - mkt_ret) x 12,-1.35
+(e) Calendar-month mean of (R_p - French market) x 12,-2.65
+(f) CAPM alpha x 12,-3.89
+(g) Three-factor alpha x 12,-1.45
+(h) Four-factor (with Mom) alpha x 12,-1.49

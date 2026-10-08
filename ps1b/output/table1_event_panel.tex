@@ -1,0 +1,21 @@
+\begin{table}
+\caption{Q1: Event-time panel. Window = calendar months +1 to +12 after the ex-date month (month 0). 'Cut short by data end' = month +12 falls after Dec 2025; 'cut short by stock stopping trading' = a window month up to Dec 2025 has no daily returns for the stock (proceeds are invested in mkt\_ret for the rest of the window). The two reasons overlap for some events, so rows do not add up to the total.}
+\label{tab:q1}
+\begin{tabular}{p{11cm}r}
+\toprule
+ & Events \\
+\midrule
+Split events (stock\_splits.csv) & 232 \\
+Events with at least one window month <= Dec 2025 & 230 \\
+Events whose ex-date month is Dec 2025 (no window month at all) & 2 \\
+Panel rows (event x month) & 2681 \\
+Cut short by data end (month +12 after Dec 2025) & 19 \\
+Cut short by stock stopping trading (in window, <= Dec 2025) & 4 \\
+   of which also cut by data end & 0 \\
+   stopped trading only (full 12 months, proceeds in market) & 4 \\
+   stock has no data from month +1 (all 12 months = market) & 0 \\
+Complete events (12 months, never stops) & 209 \\
+Events with 12-month BHAR (month +12 <= Dec 2025) & 213 \\
+\bottomrule
+\end{tabular}
+\end{table}
