@@ -1,0 +1,38 @@
+\begin{table}
+\caption{Appendix: data and results checks (selected). Full list in sanity\_checks.csv.}
+\label{tab:checks}
+\begin{tabular}{p{9cm}p{6cm}}
+\toprule
+ & Result \\
+\midrule
+daily rows & 629274 \\
+split events & 232 \\
+daily duplicates (permno,date) & 0 \\
+daily missing ret / mkt\_ret / mktcap & 0 / 0 / 0 \\
+ex-date range & 2014-01-08 to 2025-12-23 \\
+trading days in calendar & 3520 \\
+explicit NaN ret in raw file & 0 \\
+empty stock-days inside stock history filled with mkt\_ret & 91 \\
+stock-days in wholly-empty months (not filled, month treated as 'stopped trading') & 923 \\
+corr(compounded mkt\_ret, French Mkt-RF+RF) monthly & 0.99772 \\
+mean monthly diff (mkt\_ret - French Mkt), and 2014-2025 compounded return of each & -0.00115; 2.825 vs 3.420 \\
+events with trading obs in month 0 & 232 of 232 \\
+monthly stock return inside event windows: min / max & -0.585 / 1.054 \\
+expected panel rows = sum(min(12, DATA\_END - m0)) & 2681 \\
+BHAR from panel vs direct daily compounding (8 random events), max abs diff & 2.66e-15 \\
+events whose window contains a day filled with mkt\_ret & 2 \\
+robustness: mean BHAR vs French market / t & -0.0062 / -0.26 \\
+SE of mean BHAR: iid vs clustered by ex-date month & 0.0244 vs 0.0237 \\
+events with size decile assigned & 232 of 232 \\
+cap at month 0: median / min / max (\$ millions) & 5,324 / 23.4 / 3,035,234 \\
+held event-months before / after removing overlapping splits of the same stock & 2675 / 2667 \\
+EW weights sum to 1 in every month (max abs deviation) & 0.00e+00 \\
+model (1) alpha == mean excess return & 0.007960 vs 0.007960 \\
+CAPM alpha/beta: statsmodels vs numpy lstsq (max abs diff) & 2.22e-16 \\
+VW weights sum to 1 in every month (max abs deviation) & 2.22e-16 \\
+VW: average / max (over months) of largest single-stock weight & 0.502 / 0.944 \\
+VW: average effective number of stocks (1/sum w\textasciicircum 2) & 3.7 \\
+decomposition identity: max |sum - mean excess| & 1.4e-14 \\
+\bottomrule
+\end{tabular}
+\end{table}

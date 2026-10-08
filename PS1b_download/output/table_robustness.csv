@@ -1,0 +1,4 @@
+,N,Estimate (%),t-statistic
+"BHAR vs. market, excluding fill/stop events",208,0.78,0.32
+"BHAR vs. market, winsorised at 1/99",213,0.46,0.2
+"CAPM alpha (%/month), excluding fill/stop events",143,-0.32,-1.47

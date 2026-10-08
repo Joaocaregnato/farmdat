@@ -1,0 +1,10 @@
+,(2) CAPM,(3) FF3,(4) FF3+Mom,(5) FF5
+Mean excess return (%/month),0.796,0.796,0.796,0.796
+Alpha,-0.325,-0.121,-0.124,-0.114
+Mkt-RF: loading x mean factor,1.121,1.019,1.021,1.005
+SMB: loading x mean factor,,-0.112,-0.112,-0.111
+HML: loading x mean factor,,0.009,0.009,0.012
+Mom: loading x mean factor,,,0.001,
+RMW: loading x mean factor,,,,-0.013
+CMA: loading x mean factor,,,,0.017
+Sum (alpha + contributions),0.796,0.796,0.796,0.796
