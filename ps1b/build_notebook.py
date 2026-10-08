@@ -2,7 +2,7 @@
 import re, sys
 import nbformat as nbf
 
-src = open(sys.argv[1] if len(sys.argv) > 1 else "ps1b.py").read()
+src = open(sys.argv[1] if len(sys.argv) > 1 else "ps1b.py").read().replace("# %%\n", "")   # drop Spyder/VS Code cell markers
 banner = re.compile(r"^# -{20,}\n# (.+)\n# -{20,}\n", re.M)
 parts = banner.split(src)            # [pre, title1, body1, title2, body2, ...]
 pre, rest = parts[0], parts[1:]

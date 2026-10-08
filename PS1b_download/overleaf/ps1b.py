@@ -28,6 +28,7 @@ try:                                           # inside Jupyter: show tables/fig
 except Exception:
     display, IN_NOTEBOOK = None, False
 
+# %%
 # --------------------------------------------------------------------------
 # Paths (override with environment variables if needed)
 # --------------------------------------------------------------------------
@@ -139,6 +140,7 @@ def save_table(df, name, caption, label, index=True, colfmt=None, groups=None, b
     display(df) if display is not None and IN_NOTEBOOK else print(df.to_string())
 
 
+# %%
 # --------------------------------------------------------------------------
 # French data parsers
 # --------------------------------------------------------------------------
@@ -180,6 +182,7 @@ def parse_french(path, block=0, header=None):
     return df
 
 
+# %%
 # --------------------------------------------------------------------------
 # 0. Load data
 # --------------------------------------------------------------------------
@@ -205,6 +208,7 @@ cal_idx = pd.Series(np.arange(len(cal)), index=pd.DatetimeIndex(cal))
 mkt_daily = daily.groupby("date").mkt_ret.first()
 check("trading days in calendar", len(cal), "(approx. 252 x 14 = 3,528)")
 
+# %%
 # --------------------------------------------------------------------------
 # 1. Fill empty returns inside a stock's history with the market return
 # --------------------------------------------------------------------------
@@ -233,6 +237,7 @@ grid.loc[to_fill, "ret"] = grid.loc[to_fill, "mkt_ret"]
 check("remaining NaN returns after fill", int(grid.ret.isna().sum()))
 check("filled-days by permno (top 5)", grid[to_fill].groupby("permno").size().sort_values(ascending=False).head(5).to_dict())
 
+# %%
 # --------------------------------------------------------------------------
 # 2. Monthly returns (compounded daily), monthly market return, end-of-month cap
 # --------------------------------------------------------------------------
@@ -252,6 +257,7 @@ ndays_mkt = mk.groupby("mi").size()
 check("market days per month: min / max", f"{ndays_mkt.min()} / {ndays_mkt.max()}", "(expect ~19-23)")
 check("monthly market return mean / sd (decimal)", f"{mon_mkt.mean():.4f} / {mon_mkt.std():.4f}")
 
+# %%
 # --------------------------------------------------------------------------
 # 3. French data
 # --------------------------------------------------------------------------
@@ -287,6 +293,7 @@ check("mean monthly diff (mkt_ret - French Mkt), and 2014-2025 compounded return
       f"{(j.mine - j.french).mean():.5f}; {np.expm1(np.log1p(j.mine[j.index >= 2014 * 12]).sum()):.3f} vs {np.expm1(np.log1p(j.french[j.index >= 2014 * 12]).sum()):.3f}",
       "mkt_ret runs ~0.11pp/month (~1.4%/yr) BELOW French's market: BHAR benchmark is slightly easier than the factor-model market")
 
+# %%
 # --------------------------------------------------------------------------
 # Q1. Event-time panel
 # --------------------------------------------------------------------------
@@ -356,6 +363,7 @@ for _, r in sample.iterrows():
     maxdiff = max(maxdiff, abs(direct - viapanel))
 check("BHAR from panel vs direct daily compounding (8 random events), max abs diff", f"{maxdiff:.2e}")
 
+# %%
 # --------------------------------------------------------------------------
 # Q2. BHAR vs market
 # --------------------------------------------------------------------------
@@ -418,6 +426,7 @@ check("skewness gamma-hat vs scipy skew(bias=True)", f"{st_mkt['Skewness (gamma-
 check("events with stop at tau=1 (whole window = market, BHAR = 0)", int((ev.stop_tau == 1).sum()))
 check("BHAR min / max", f"{x.min():.3f} / {x.max():.3f}", "BHAR >= -(1 + market return): sanity ok if min > -1.5")
 
+# %%
 # --------------------------------------------------------------------------
 # Q3. BHAR vs NYSE size-decile benchmark
 # --------------------------------------------------------------------------
@@ -536,6 +545,7 @@ fig.tight_layout(w_pad=2.5)
 finish_fig(fig, "fig3_size_benchmark")
 check("t-stat of paired difference (decile - market)", f"{st_diff['t-statistic']:.3f}")
 
+# %%
 # --------------------------------------------------------------------------
 # Q5. Calendar-time portfolio (equal-weighted, each stock once per month)
 # --------------------------------------------------------------------------
@@ -595,6 +605,7 @@ ax2.annotate(f"mean {mon_p.n.mean():.1f}, min {mon_p.n.min()}, max {mon_p.n.max(
 ax2.set_ylabel("Stocks held"); ax2.set_ylim(0, mon_p.n.max() * 1.1); ax2.grid(axis="x", visible=False)
 finish_fig(fig, "fig2_portfolio")
 
+# %%
 # --------------------------------------------------------------------------
 # Q6. Factor regressions
 # --------------------------------------------------------------------------
@@ -713,6 +724,7 @@ ax2.grid(axis="y", visible=False); ax2.grid(axis="x", visible=True)
 fig.tight_layout(w_pad=2.5)
 finish_fig(fig, "fig4_alpha_loadings")
 
+# %%
 # --------------------------------------------------------------------------
 # Q8. Weighting: WLS (weights = N stocks) and value-weighted portfolio (prev-month cap)
 # --------------------------------------------------------------------------
@@ -787,6 +799,7 @@ loadings = pd.DataFrame(loadings).T[["Mkt-RF", "SMB", "HML", "Mom"]].fillna("")
 save_table(loadings.apply(lambda c: [f"{v:.3f}" if v != "" else "" for v in c]), "table8b_loadings", "Q8 (supporting): factor loadings under each weighting scheme. The value-weighted portfolio is a large-cap growth portfolio (beta 1.2--1.3, HML $\\approx -0.75$, SMB $\\approx 0$).", "tab:q8b", colfmt="lrrrr")
 
 
+# %%
 # --------------------------------------------------------------------------
 # Robustness: drop events touched by the fill rule or by the stop-trading rule; winsorise BHAR
 # --------------------------------------------------------------------------
@@ -808,6 +821,7 @@ rob["N"] = rob.N.astype(int)
 save_table(fmt_df(rob, 2), "table_robustness", "Robustness: dropping the events touched by the empty-day fill rule (2) or the stopped-trading rule (4), and winsorising BHARs at the 1st and 99th percentiles. "
            "Estimates are percent (BHAR) or percent per month (alpha); t-statistics are conventional for BHAR and Newey-West for alpha.", "tab:rob", colfmt="p{8cm}rrr")
 
+# %%
 # --------------------------------------------------------------------------
 # Q6/Q7 supporting tables: alpha decomposition and BHAR <-> alpha bridge
 # --------------------------------------------------------------------------
@@ -873,6 +887,7 @@ for lab_, c_ in [("Event-time BHAR", C["blue"]), ("Calendar-time mean difference
 ax.legend(loc="upper left", fontsize=8.5)
 finish_fig(fig, "fig5_bridge")
 
+# %%
 # --------------------------------------------------------------------------
 # Save checks and key numbers
 # --------------------------------------------------------------------------
