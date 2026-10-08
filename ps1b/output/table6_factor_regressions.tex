@@ -1,35 +1,40 @@
-\begin{table}
-\caption{Q6: regressions of the equal-weighted calendar-time portfolio's monthly excess return ($R_p - R_f$) on factors. Coefficients: alpha in percent per month; loadings are betas. Parentheses: OLS t-statistics; brackets: Newey-West t-statistics (6 lags). Model (5) uses the five-factor file's own Mkt-RF, SMB, HML, RMW, CMA and RF. Sample: calendar months with at least one stock held.}
+\begin{table}[!htbp]
+\centering
+\small
+\caption{Q6: regressions of the equal-weighted calendar-time portfolio's monthly excess return ($R_p - R_f$) on factors. Alpha in percent per month; loadings are betas. Model (5) uses the five-factor file's own Mkt-RF, SMB, HML, RMW, CMA and RF. Sample: calendar months with at least one stock held.}
 \label{tab:q6}
 \begin{tabular}{lrrrrr}
 \toprule
  & (1) No factors & (2) CAPM & (3) FF3 & (4) FF3+Mom & (5) FF5 \\
 \midrule
-alpha (\% per month) & 0.796 & -0.325 & -0.121 & -0.124 & -0.114 \\
-alpha t (OLS) & (1.70) & (-1.29) & (-0.53) & (-0.54) & (-0.49) \\
-alpha t (NW) & [2.27] & [-1.52] & [-0.51] & [-0.53] & [-0.48] \\
-Mkt-RF &  & 1.102 & 1.003 & 1.005 & 0.988 \\
-Mkt-RF t (OLS) &  & (19.47) & (18.76) & (17.78) & (17.57) \\
-Mkt-RF t (NW) &  & [23.20] & [26.66] & [22.42] & [24.37] \\
-SMB &  &  & 0.505 & 0.507 & 0.456 \\
-SMB t (OLS) &  &  & (5.95) & (5.82) & (4.77) \\
-SMB t (NW) &  &  & [7.86] & [7.93] & [6.65] \\
-HML &  &  & -0.091 & -0.088 & -0.114 \\
-HML t (OLS) &  &  & (-1.49) & (-1.35) & (-1.30) \\
-HML t (NW) &  &  & [-1.10] & [-0.96] & [-0.99] \\
+\rowcolor[gray]{0.94} \textbf{alpha (\% per month)} & \textbf{0.796\textsuperscript{**}} & \textbf{$-$0.325} & \textbf{$-$0.121} & \textbf{$-$0.124} & \textbf{$-$0.114} \\
+\rowcolor[gray]{0.94}  & [2.27] & [$-$1.52] & [$-$0.51] & [$-$0.53] & [$-$0.48] \\
+\rowcolor[gray]{0.94}  & (1.70) & ($-$1.29) & ($-$0.53) & ($-$0.54) & ($-$0.49) \\
+\addlinespace
+Mkt-RF &  & 1.102\textsuperscript{***} & 1.003\textsuperscript{***} & 1.005\textsuperscript{***} & 0.988\textsuperscript{***} \\
+ &  & [23.20] & [26.66] & [22.42] & [24.37] \\
+\addlinespace
+SMB &  &  & 0.505\textsuperscript{***} & 0.507\textsuperscript{***} & 0.456\textsuperscript{***} \\
+ &  &  & [7.86] & [7.93] & [6.65] \\
+\addlinespace
+HML &  &  & $-$0.091 & $-$0.088 & $-$0.114 \\
+ &  &  & [$-$1.10] & [$-$0.96] & [$-$0.99] \\
+\addlinespace
 Mom &  &  &  & 0.009 &  \\
-Mom t (OLS) &  &  &  & (0.13) &  \\
-Mom t (NW) &  &  &  & [0.11] &  \\
-RMW &  &  &  &  & -0.045 \\
-RMW t (OLS) &  &  &  &  & (-0.37) \\
-RMW t (NW) &  &  &  &  & [-0.33] \\
-CMA &  &  &  &  & -0.151 \\
-CMA t (OLS) &  &  &  &  & (-1.14) \\
-CMA t (NW) &  &  &  &  & [-0.92] \\
+ &  &  &  & [0.11] &  \\
+\addlinespace
+RMW &  &  &  &  & $-$0.045 \\
+ &  &  &  &  & [$-$0.33] \\
+\addlinespace
+CMA &  &  &  &  & $-$0.151 \\
+ &  &  &  &  & [$-$0.92] \\
+\midrule
 N months & 143 & 143 & 143 & 143 & 143 \\
 R-squared & 0.000 & 0.729 & 0.785 & 0.785 & 0.784 \\
-SE alpha OLS (\%) & 0.470 & 0.252 & 0.229 & 0.231 & 0.232 \\
-SE alpha NW (\%) & 0.351 & 0.213 & 0.235 & 0.235 & 0.235 \\
+SE alpha, OLS (\%) & 0.470 & 0.252 & 0.229 & 0.231 & 0.232 \\
+SE alpha, Newey-West (\%) & 0.351 & 0.213 & 0.235 & 0.235 & 0.235 \\
 \bottomrule
 \end{tabular}
+\par\vspace{3pt}
+{\footnotesize Stars: significance of the Newey-West $t$ (* 10\%, ** 5\%, *** 1\%). Brackets: Newey-West $t$ (6 lags); parentheses: OLS $t$ (alpha only).}
 \end{table}

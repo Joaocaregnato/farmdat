@@ -3,6 +3,7 @@
 \usepackage{mathptmx}
 \usepackage[margin=1in]{geometry}
 \usepackage{setspace}
+\usepackage[table]{xcolor}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage[section]{placeins}
@@ -21,10 +22,10 @@
 \noindent\textbf{Q1 (event panel).} There are 232 events. Two have ex-dates in December 2025 and no window month, so 230 events give 2,681 event-month rows. Nineteen events (ex-dates in 2025) are cut short by the data end and 4 by the stock ceasing to trade (proceeds go to \texttt{mkt\_ret}; none of the 4 overlaps with the data-end group); 209 are complete (Table~\ref{tab:q1}, \ref{tab:q1b}).
 
 \medskip
-\noindent\textbf{Q2 (BHAR vs.\ market).} 213 events have a 12-month BHAR (Table~\ref{tab:bhar}, Figure~\ref{fig:hist}). The mean is 0.74\% (median 1.53\%), s.e.\ 2.44\%, $t=0.30$ ($p=0.76$): not significant. The distribution is wide (sd 35.7\%; 10th/25th/75th/90th percentiles $-43.3$/$-21.6$/$18.6$/$44.1$\%) and mildly right-skewed ($\hat\gamma=0.41$). With this s.e., a mean BHAR must exceed 4.8\% to be significant at 5\%, and the true mean must be about 6.9\% to be detected with 80\% power: the test cannot rule out abnormal returns of a few percent a year.
+\noindent\textbf{Q2 (BHAR vs.\ market).} 213 events have a 12-month BHAR (Table~\ref{tab:bhar}, Figure~\ref{fig:bhar}). The mean is 0.74\% (median 1.53\%), s.e.\ 2.44\%, $t=0.30$ ($p=0.76$): not significant. The distribution is wide (sd 35.7\%; 10th/25th/75th/90th percentiles $-43.3$/$-21.6$/$18.6$/$44.1$\%) and mildly right-skewed ($\hat\gamma=0.41$). With this s.e., a mean BHAR must exceed 4.8\% to be significant at 5\%, and the true mean must be about 6.9\% to be detected with 80\% power: the test cannot rule out abnormal returns of a few percent a year.
 
 \medskip
-\noindent\textbf{Q3 (benchmark).} Using month-0 market cap (median \$5.3bn; 14\% of events in NYSE decile 1, 21\% in decile 10; Table~\ref{tab:decile}) and French's value-weighted decile returns, the mean BHAR rises to 3.06\% ($t=1.28$). The paired change of $+2.33$ pp (s.e.\ 0.49, $t=4.76$) is highly significant, but the conclusion is the same: the mean BHAR is not significantly different from zero under either benchmark. The benchmark matters because the value-weighted market is dominated by mega-caps: its average 12-month return over the windows (9.8\%) exceeds that of the average size-matched benchmark (7.5\%), since many splitters are small or mid-caps.
+\noindent\textbf{Q3 (benchmark).} Using month-0 market cap (median \$5.3bn; 14\% of events in NYSE decile 1, 21\% in decile 10; Figure~\ref{fig:size}, Table~\ref{tab:decile}) and French's value-weighted decile returns, the mean BHAR rises to 3.06\% ($t=1.28$). The paired change of $+2.33$ pp (s.e.\ 0.49, $t=4.76$) is highly significant, but the conclusion is the same: the mean BHAR is not significantly different from zero under either benchmark. The benchmark matters because the value-weighted market is dominated by mega-caps: its average 12-month return over the windows (9.8\%) exceeds that of the average size-matched benchmark (7.5\%), since many splitters are small or mid-caps.
 
 \medskip
 \noindent\textbf{Q4 (skewness).} $t_{SA}=0.31$ versus $t=0.30$ (decile benchmark: 1.30 versus 1.28). The difference is negligible because skewness is modest and $S=\overline{\mathrm{BHAR}}/s$ is only 0.02, so the correction $\sqrt n(\hat\gamma S^2/3+\hat\gamma/6n)\approx 0.005$. In general, with positively skewed BHARs the sample mean and sample standard deviation are positively correlated, so the sampling distribution of $t$ is negatively skewed: the conventional test rejects too often in the lower tail and too rarely in the upper tail, i.e., it understates evidence of positive (and overstates evidence of negative) abnormal returns. The skewness-adjusted statistic corrects this, and the effect is immaterial here.
@@ -33,13 +34,13 @@
 \noindent\textbf{Q5 (calendar-time portfolio).} In each calendar month I hold every stock that is in months $+1$ to $+12$ of a split window, equally weighted, and a stock with overlapping splits is held once (8 duplicated stock-months removed, from 2,675 to 2,667). The portfolio spans 143 months (Feb 2014--Dec 2025, none empty) and holds 18.7 stocks on average (minimum 4, maximum 41). Twenty-two months hold fewer than 10 stocks, all between 2014 and Oct 2023; they are kept in the sample, so those months are noisy but get the same weight as the others (Table~\ref{tab:q5}, Figure~\ref{fig:port}). Weights sum to one in every month, and the monthly return has mean 0.94\% and sd 5.6\%.
 
 \medskip
-\noindent\textbf{Q6 (factor regressions).} The equal-weighted portfolio's raw mean excess return is 0.80\% per month (Newey-West $t=2.27$), but this is market risk: the CAPM alpha is $-0.33$\% ($t_{NW}=-1.52$, $t_{OLS}=-1.29$) with $\beta=1.10$, and alpha is $-0.12$\% ($-0.51$) with three factors, $-0.12$\% ($-0.53$) adding momentum, and $-0.11$\% ($-0.48$) in the five-factor model (Table~\ref{tab:q6}). Alpha rises by 0.20 pp from CAPM to three factors for two reasons (Table~\ref{tab:q6c}): the market loading falls to 1.00 (+0.10 pp) and the SMB loading is 0.51 ($t_{NW}=7.9$) while SMB earned $-0.22$\% per month in this sample (+0.11 pp). Together these remove about 60\% of the CAPM underperformance: splitters are small/mid-cap stocks that lagged in this period, and they carry a market beta close to one once size is controlled. HML ($-0.09$), momentum (0.01), RMW and CMA are insignificant. Newey-West standard errors for alpha are \emph{smaller} than OLS ones in models (1)--(2) (0.35 vs.\ 0.47; 0.21 vs.\ 0.25) and about equal afterwards (0.235 vs.\ 0.23), contrary to my prediction; conclusions do not depend on this choice (Table~\ref{tab:q6b}).
+\noindent\textbf{Q6 (factor regressions).} The equal-weighted portfolio's raw mean excess return is 0.80\% per month (Newey-West $t=2.27$), but this is market risk: the CAPM alpha is $-0.32$\% ($t_{NW}=-1.52$, $t_{OLS}=-1.29$) with $\beta=1.10$, and alpha is $-0.12$\% ($-0.51$) with three factors, $-0.12$\% ($-0.53$) adding momentum, and $-0.11$\% ($-0.48$) in the five-factor model (Table~\ref{tab:q6}, Figure~\ref{fig:alpha}). Alpha rises by 0.20 pp from CAPM to three factors for two reasons (Table~\ref{tab:q6c}): the market loading falls to 1.00 (+0.10 pp) and the SMB loading is 0.51 ($t_{NW}=7.9$) while SMB earned $-0.22$\% per month in this sample (+0.11 pp). Together these remove about 60\% of the CAPM underperformance: splitters are small/mid-cap stocks that lagged in this period, and they carry a market beta close to one once size is controlled. HML ($-0.09$), momentum (0.01), RMW and CMA are insignificant. Newey-West standard errors for alpha are \emph{smaller} than OLS ones in models (1)--(2) (0.35 vs.\ 0.47; 0.21 vs.\ 0.25) and about equal afterwards (0.235 vs.\ 0.23), contrary to my prediction; conclusions do not depend on this choice (Table~\ref{tab:q6b}).
 
 \medskip
-\noindent\textbf{Q7 (comparison).} Both methods agree on the statistical conclusion: no significant abnormal return after splits (BHAR $+0.7$\%, $t=0.3$; CAPM alpha $-3.9$\% per year, $t=-1.5$; three-factor alpha $-1.4$\%, $t=-0.5$). The signs differ for CAPM because the two measures are not the same object (Table~\ref{tab:q7}): (i) the provided \texttt{mkt\_ret} compounds to 282\% over 2014--2025 against 342\% for French's market ($\approx$1.4 pp per year lower), so BHAR against French's market is $-0.6$\%; (ii) BHAR weights every event-month equally ($+0.9$\% per year, arithmetic) whereas calendar-time weights every calendar month equally, giving much weight to the early months held by only 4--10 stocks ($-1.35$\% against \texttt{mkt\_ret}); (iii) the CAPM penalises beta of 1.10 in a market that earned about 12\% per year (about $-1.2$ pp), while BHAR implicitly assumes beta 1; (iv) the calendar-time portfolio includes the truncated windows of the 2025 splits and is rebalanced monthly, while BHAR compounds buy-and-hold. Three-factor alphas are close to zero because the beta and size loadings absorb most of the CAPM underperformance.
+\noindent\textbf{Q7 (comparison).} Both methods agree on the statistical conclusion: no significant abnormal return after splits (BHAR $+0.7$\%, $t=0.3$; CAPM alpha $-3.9$\% per year, $t=-1.5$; three-factor alpha $-1.4$\%, $t=-0.5$). The signs differ for CAPM because the two measures are not the same object (Table~\ref{tab:q7}, Figure~\ref{fig:bridge}): (i) the provided \texttt{mkt\_ret} compounds to 282\% over 2014--2025 against 342\% for French's market ($\approx$1.4 pp per year lower), so BHAR against French's market is $-0.6$\%; (ii) BHAR weights every event-month equally ($+0.9$\% per year, arithmetic) whereas calendar-time weights every calendar month equally, giving much weight to the early months held by only 4--10 stocks ($-1.35$\% against \texttt{mkt\_ret}); (iii) the CAPM penalises beta of 1.10 in a market that earned about 12\% per year (about $-1.2$ pp), while BHAR implicitly assumes beta 1; (iv) the calendar-time portfolio includes the truncated windows of the 2025 splits and is rebalanced monthly, while BHAR compounds buy-and-hold. Three-factor alphas are close to zero because the beta and size loadings absorb most of the CAPM underperformance.
 
 \medskip
-\noindent\textbf{Q8 (weighting).} Weighting does not change the conclusion (Table~\ref{tab:q8}). Weighting months by the number of stocks held (WLS) gives CAPM alpha $-0.18$\% ($t=-0.81$) and three-factor alpha $+0.04$\% ($0.15$); the value-weighted portfolio gives $-0.07$\% ($-0.16$) and $-0.15$\% ($-0.41$). The value-weighted portfolio is extremely concentrated (the largest stock averages 50\% of the weight; effective number of stocks 3.7), so it is a mega-cap growth portfolio: $\beta=1.26$, HML $-0.75$, SMB $\approx 0$ (Table~\ref{tab:q8b}). Its CAPM alpha is closer to zero than the equal-weighted one because it lacks the small-cap tilt (SMB $\approx 0$) that hurt the equal-weighted portfolio; once three factors are included, all three alphas lie within $\pm0.15$ pp per month with $|t|<0.6$. Weighting changes the loadings, not the (insignificant) alpha.
+\noindent\textbf{Q8 (weighting).} Weighting does not change the conclusion (Table~\ref{tab:q8}, Figure~\ref{fig:weight}). Weighting months by the number of stocks held (WLS) gives CAPM alpha $-0.18$\% ($t=-0.81$) and three-factor alpha $+0.04$\% ($0.15$); the value-weighted portfolio gives $-0.07$\% ($-0.16$) and $-0.15$\% ($-0.41$). The value-weighted portfolio is extremely concentrated (the largest stock averages 50\% of the weight; effective number of stocks 3.7), so it is a mega-cap growth portfolio: $\beta=1.26$, HML $-0.75$, SMB $\approx 0$ (Table~\ref{tab:q8b}). Its CAPM alpha is closer to zero than the equal-weighted one because it lacks the small-cap tilt (SMB $\approx 0$) that hurt the equal-weighted portfolio; once three factors are included, all three alphas lie within $\pm0.15$ pp per month with $|t|<0.6$. Weighting changes the loadings, not the (insignificant) alpha.
 
 \clearpage
 \section*{Tables and Figures}
@@ -52,7 +53,7 @@
 Question & Prediction & Why? & Outcome \\
 \midrule
 Mean 12-month BHAR & About zero (slightly positive), statistically insignificant & Splitters follow price run-ups, but long-run abnormal returns are small and BHARs are very noisy (sd about 35--60\%) & Mean $+0.7$\%, $t=0.3$ \\
-Calendar-time alpha; adding size, value, momentum & About zero or slightly positive for CAPM; it shrinks toward zero (or below) with factors & Splitters are growth, momentum, small/mid-cap stocks; SMB, HML and Mom should absorb part of any positive alpha & CAPM $-0.33$\% (not positive); shrinks to $-0.12$\%, driven by market beta and SMB \\
+Calendar-time alpha; adding size, value, momentum & About zero or slightly positive for CAPM; it shrinks toward zero (or below) with factors & Splitters are growth, momentum, small/mid-cap stocks; SMB, HML and Mom should absorb part of any positive alpha & CAPM $-0.32$\% (not positive); shrinks to $-0.12$\%, driven by market beta and SMB \\
 OLS or Newey-West larger s.e.\ for alpha & Newey-West larger & Overlapping 12-month holdings induce serial correlation in the portfolio's residuals & Not confirmed: Newey-West smaller in models (1)--(2), similar after \\
 \bottomrule
 \end{tabular}
@@ -63,24 +64,48 @@ OLS or Newey-West larger s.e.\ for alpha & Newey-West larger & Overlapping 12-mo
 \input{tables/table2_bhar_summary}
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/fig1_bhar_hist.png}
-\caption{Histogram of the 213 12-month BHARs against the value-weighted market (\texttt{mkt\_ret}); 0.10 = 10 percent. The dashed line is the mean (0.74\%) and the dotted line the median (1.53\%). The distribution is wide and mildly right-skewed.}
-\label{fig:hist}
+\includegraphics[width=\textwidth]{figures/fig1_bhar.png}
+\caption{Q2--Q4. Left: histogram of the 213 12-month BHARs against the value-weighted market (\texttt{mkt\_ret}); the vertical line is the mean (+0.74\%; median +1.53\%). Right: mean BHAR with 95\% confidence intervals for the market benchmark, the size-decile benchmark and their paired difference. The grey band is $\pm4.8\%$, the smallest mean BHAR that would be significant at 5\% given the standard error of the market-benchmark BHAR. Only the change of benchmark is statistically distinguishable from zero.}
+\label{fig:bhar}
+\end{figure}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_size_benchmark.png}
+\caption{Q3. Left: number of split events by NYSE size decile (month-0 market cap against French's ME breakpoints). Right: each event's 12-month market return against its size-decile return, by size group; points below the dashed 45-degree line are events whose size-matched benchmark is lower than the market, which is the case for most small-cap splitters.}
+\label{fig:size}
 \end{figure}
 \input{tables/table3_decile_dist}
 \input{tables/table5_portfolio}
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/fig2_portfolio.png}
-\caption{Equal-weighted calendar-time portfolio: monthly return in percent (top) and number of stocks held (bottom), Feb 2014--Dec 2025. The portfolio is thin (4 to 10 stocks) until 2023, so its early months are noisy.}
+\includegraphics[width=\textwidth]{figures/fig2_portfolio.png}
+\caption{Q5. Equal-weighted calendar-time portfolio, Feb 2014--Dec 2025: monthly return in percent (top; blue = gain, red = loss) and number of stocks held (bottom). Grey bands mark the 22 months with fewer than 10 stocks, which are kept in the sample.}
 \label{fig:port}
 \end{figure}
 \input{tables/table6_factor_regressions}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4_alpha_loadings.png}
+\caption{Q6. Left: monthly alpha of the portfolio under each model with 95\% Newey-West confidence intervals (labels: alpha and Newey-West $t$). Right: factor loadings of the four-factor model with 95\% confidence intervals. The raw excess return is significant; once the market (beta 1.0--1.1) and size (SMB 0.5) are controlled, alpha is indistinguishable from zero.}
+\label{fig:alpha}
+\end{figure}
 \input{tables/table6b_nw_lags}
 \input{tables/table6c_alpha_decomposition}
 \input{tables/table6d_factor_means}
 \input{tables/table7_bridge}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/fig5_bridge.png}
+\caption{Q7. From the 12-month BHAR to the calendar-time alphas, in percent per year (same split events throughout). Blue: event-time BHAR; orange: mean difference between the calendar-time portfolio and the market (beta fixed at one); green: regression alphas (monthly alpha $\times$ 12). The point estimates change sign because of the benchmark, the weighting and the estimated beta; none is statistically significant.}
+\label{fig:bridge}
+\end{figure}
 \input{tables/table8_weighting}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/fig6_weighting.png}
+\caption{Q8. Monthly alpha by weighting scheme and model (without the no-factor model, whose alpha is the raw mean return), with 95\% Newey-West confidence intervals. All intervals contain zero; value-weighted intervals are widest because the portfolio holds about four effective stocks.}
+\label{fig:weight}
+\end{figure}
 \input{tables/table8b_loadings}
 
 \clearpage

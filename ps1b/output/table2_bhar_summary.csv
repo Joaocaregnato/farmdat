@@ -1,19 +1,19 @@
 ,vs. market,vs. size decile,Difference
 N events,213,213,213
-Mean,0.0074,0.0306,0.0233
-Median,0.0153,0.0335,0.0103
-Std. dev.,0.3568,0.3496,0.0713
-Std. error of mean,0.0244,0.0240,0.0049
-t-statistic,0.3015,1.2785,4.7582
-"p-value (two-sided, t)",0.7633,0.2025,0.0000
-Skewness (gamma-hat),0.4081,0.5198,0.8187
-p10,-0.4333,-0.3644,-0.0516
-p25,-0.2159,-0.2037,-0.0300
-p75,0.1858,0.2036,0.0711
-p90,0.4408,0.4831,0.1217
-Min,-0.9269,-0.7665,-0.1159
-Max,1.3661,1.3838,0.2401
-Share of BHAR > 0,0.5117,0.5305,0.5258
-t_SA (skewness-adjusted),0.3070,1.3039,5.1909
-Min. mean BHAR significant at 5%,0.0482,0.0472,0.0096
-Mean BHAR detectable with 80% power,0.0688,0.0674,0.0138
+Mean (%),0.74,3.06,2.33
+Median (%),1.53,3.35,1.03
+p10 (%),-43.33,-36.44,-5.16
+p25 (%),-21.59,-20.37,-3.00
+p75 (%),18.58,20.36,7.11
+p90 (%),44.08,48.31,12.17
+Min (%),-92.69,-76.65,-11.59
+Max (%),136.61,138.38,24.01
+Share of BHAR > 0 (%),51.17,53.05,52.58
+Std. dev. (%),35.68,34.96,7.13
+Skewness (gamma-hat),0.41,0.52,0.82
+Std. error of mean (%),2.44,2.40,0.49
+t-statistic,0.30,1.28,4.76
+"p-value (two-sided, t)",0.76,0.20,0.00
+t_SA (skewness-adjusted),0.31,1.30,5.19
+Min. mean BHAR significant at 5% (%),4.82,4.72,0.96
+Mean BHAR detectable with 80% power (%),6.88,6.74,1.38
