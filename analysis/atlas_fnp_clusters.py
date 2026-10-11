@@ -116,7 +116,50 @@ resumo = pd.DataFrame(
     columns=["Base", "Verificação", "Resultado"],
 )
 
+RELATORIO = [
+    ("Status", "PDFs indisponíveis",
+     "Os PDFs do Atlas 2023/2025 não estavam disponíveis (não anexados; gov.br bloqueado pela rede do ambiente). "
+     "A conferência Excel x PDF NÃO foi feita e os municípios de cada MRT NÃO foram extraídos (o Excel do Atlas não os contém). "
+     "Tudo abaixo vem apenas dos dois Excel."),
+    ("Atlas 2025", "Estrutura", "239 MRTs, 27 UFs, 1.954 linhas, 1 linha 'Geral' por MRT: bate com o título da planilha."),
+    ("Atlas 2025", "A conferir no PDF",
+     "18 linhas com VTN > VTI (ex.: PB-1803, GO-401 Pecuária, MS-1605 Pecuária, SE-2304/2305 Geral); 3 pares (MRT, tipologia) duplicados "
+     "(RS-1106 Agrícola, DF-2808/GO-2808); 38 MRTs com 'Geral' fora do intervalo das tipologias nível 1; "
+     "outliers extremos (MG-606 Varginha Não Agrícola R$ 1,15 mi/ha; PI-2405 R$ 320/ha)."),
+    ("Atlas 2023", "UF errada", "9 MRTs com UF divergente do código (+1 interestadual ambíguo, 2802 Formoso): 1501 Sul Amazonense (rotulado Acre; é AM), "
+     "1205 Metropolitano (Amapá; é MA), 3001 Baixo Amazonas (Amazonas; é PA), 1905 (Ceará; é RN), 611 Timóteo (Maranhão; é MG), "
+     "701 Vale do Paraíba (Paraíba; é RJ), e 1601 Corumbá, 1607 Paranaíba, 1613 Ivinhema rotulados como Mato Grosso (são MS). "
+     "803 Mogiana está como Espírito Santo, mas o código 8xx parece SP (código inexistente em 2025)."),
+    ("Atlas 2023", "Blocos misturados",
+     "48 dos 51 MRTs têm 2-3 linhas 'Geral'. Só o 1º bloco casa com o MRT nomeado (razão 2025/2023 ~1,28); os demais parecem de MRTs vizinhos sem cabeçalho "
+     "(ex.: 1205 Metropolitano com VTI 233 mil e 4,9 mil/ha; MT Pantanal com Agricultura a R$ 50-87 mil/ha). "
+     "Consistente com o aviso da planilha (só ~50 de 184 MRTs em formato tabular). Os dados de MT 2023 estão contaminados."),
+    ("Atlas 2023", "Outros", "4 linhas com VTN média > VTI média; 1 com VTI média fora de [mín, máx]; 3 com VTN fora; tipologias truncadas."),
+    ("2023 -> 2025", "Valores indexados",
+     "Em 100 de 193 linhas comparáveis a razão 2025/2023 é idêntica (x1,2836: 53; x1,1200: 25; x1,3124: 22). Parece correção por índice, "
+     "não preço novo de mercado. Se confirmado no PDF, não usar essa variação como sinal de mercado nesses MRTs."),
+    ("Clusters", "Granularidade",
+     "Atlas 2025: 239 MRTs (inclui DF), 27 UFs. FNP: 133 regiões, 26 UFs, 5.494 municípios (sem DF). "
+     "Atlas é ~1,8x mais granular, mas desigual: SC 16 x 4, GO 18 x 7, ES 13 x 3, TO 13 x 3; SP é o inverso (6 x 14); PR 8 x 9; MT 11 x 11; RR 2 x 2."),
+    ("Clusters", "Divisas de UF",
+     "Alguns MRTs do Atlas cruzam UFs (Unaí/Cristalina GO+MG, Mambaí/Formoso GO+MG, 'Distrito Federal' GO+DF). Regiões FNP nunca cruzam UF."),
+    ("Clusters", "Nomes (exemplo MT)",
+     "Atlas-MT: Pantanal, Sudoeste, Parecis, Capital, Médio Araguaia, Sul, Norte Araguaia, Norte, Centro, Oeste, Noroeste. "
+     "FNP-MT: Cáceres, Cuiabá, Rondonópolis, Alto Araguaia, Pontes e Lacerda, Tangará da Serra, Sinop, Barra do Garças, Aripuanã, Alta Floresta, Vila Rica. "
+     "Lógicas aparentemente diferentes (Atlas: zonas homogêneas de valor/uso; FNP: polos/áreas de influência)."),
+    ("Clusters", "Conclusão provisória",
+     "Não misturar os dois sistemas diretamente. A viabilidade de cruzar (município -> MRT e -> região FNP, medir sobreposição) "
+     "só pode ser testada com a lista de municípios dos MRTs, que está nos PDFs."),
+    ("FNP", "Qualidade da base", "Erros de grafia ('AAntônio João' MS, 'CanaBrava do Norte' MT); DF ausente; SP com 590 municípios (de 645). "
+     "Cruzar por chave normalizada e validar com código IBGE."),
+    ("Próximos passos", "O que falta",
+     "1) PDFs do Atlas 2023 e 2025 (anexar ou liberar www.gov.br na rede). 2) Conferir Excel x PDF (prioridade MT, 18 linhas VTN>VTI de 2025, MRTs de 2023). "
+     "3) Extrair municípios por MRT. 4) Calcular sobreposição MRT x região FNP (% em comum, pureza, Jaccard)."),
+]
+relatorio = pd.DataFrame(RELATORIO, columns=["Seção", "Tema", "Detalhe"])
+
 with pd.ExcelWriter(OUT, engine="openpyxl") as xw:
+    relatorio.to_excel(xw, sheet_name="Relatório", index=False)
     resumo.to_excel(xw, sheet_name="Resumo", index=False)
     mrt25.to_excel(xw, sheet_name="Atlas 2025 - clusters (MRT)", index=False)
     reg.to_excel(xw, sheet_name="FNP - regiões e municípios", index=False)
@@ -127,7 +170,12 @@ with pd.ExcelWriter(OUT, engine="openpyxl") as xw:
         ws.freeze_panes = "A2"
         for col in ws.columns:
             width = max(len(str(c.value)) if c.value is not None else 0 for c in col)
-            ws.column_dimensions[col[0].column_letter].width = min(width + 2, 60)
+            ws.column_dimensions[col[0].column_letter].width = min(width + 2, 110 if ws.title == "Relatório" else 60)
+        if ws.title == "Relatório":
+            from openpyxl.styles import Alignment
+            for row in ws.iter_rows(min_row=2):
+                for c in row:
+                    c.alignment = Alignment(wrap_text=True, vertical="top")
 
 print(resumo.to_string(index=False))
 print(cmp_.to_string(index=False))
